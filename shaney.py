@@ -57,7 +57,8 @@ def main():
 	data_dir = "data/"
 	n = 2
 	for arg in sys.argv[1:]:
-		if arg.isnumeric(): n = int(arg)
+		if arg.isnumeric():
+			n = int(arg)
 		else: data_dir = arg
 
 	# Build the frequency table by reading the input text(s).
@@ -67,13 +68,13 @@ def main():
 	for filename in sorted(os.listdir(data_dir)):
 		print("Reading " + data_dir + filename)
 		words = open(data_dir + filename, encoding="utf-8").read().split()
-		starters.append(words[:2])
-		build(contexts, words, 2)
+		starters.append(words[:n])
+		build(contexts, words, n)
 
 	# Print words at random, starting at some initial context.
 	out_file = "output.txt"
 	print("Writing " + out_file)
-	f = open(out_file, "w")
+	f = open(out_file, "w", encoding="utf-8")
 	generate(f, starters, contexts)
 	f.close()
 
